@@ -1,0 +1,57 @@
+272:                key={message.id}
+58:                  <div key={tech} className="flex items-center gap-3">
+82:                key={item.label}
+47:              key={tab.id}
+79:              key={tab.id}
+203:            key={msg.id} 
+112:                   <div key={comment.id} className="flex gap-3">
+112:                key={tag}
+131:          key={activeFeed}
+150:                key={`explore-image-${i}`}
+213:                 <div key={`semantic-tag-${i}`} className="px-3 py-1.5 bg-[#1E1E1E]/80 backdrop-blur-md rounded-lg border border-amethyst-500/30 flex items-center gap-1 whitespace-nowrap shadow-[0_4px_10px_rgba(0,0,0,0.2)]">
+226:            key="story-viewer"
+249:               <img key={`story-img-${activeStory.id}`} src={activeStory.bg || activeStory.image} className="w-full h-full object-cover" alt="" />
+263:                      <div key={`progress-wrap-${story.id}`} className={`flex-1 rounded-full overflow-hidden ${barStatus}`}>
+266:                              key={`progress-fill-${activeStory.id}`}
+294:                    <img key={`avatar-${activeStory.id}`} src={activeStory.image} alt={activeStory.name} className="w-full h-full object-cover" />
+401:            key={story.id} 
+419:            <div key={`loading-post-${i}`} className="bg-white/5 border border-white/10 rounded-[32px] p-5 h-[400px] relative overflow-hidden">
+440:              key={post.id}
+184:            <motion.div key="main" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="flex flex-col w-full gap-3">
+218:             <motion.form key="email_login" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="flex flex-col w-full gap-3" onSubmit={handleEmailLogin}>
+238:             <motion.form key="email_signup" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="flex flex-col w-full gap-3" onSubmit={handleEmailSignup}>
+253:             <motion.form key="phone" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="flex flex-col w-full gap-3" onSubmit={confirmationResult ? handleVerifyOtp : handleSendOtp}>
+157:            <div key={item.id} className="glass rounded-[1.5rem] overflow-hidden group hover:scale-[1.02] transition-transform duration-300">
+101:                      <div key={note.id} className="flex flex-col items-center gap-2 relative min-w-[72px]">
+137:                      key={thread.id} 
+44:             key={tab.id}
+62:            <motion.div key="neural" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="space-y-6">
+113:            <motion.div key="mesh" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="space-y-6">
+151:            <motion.div key="spatial" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="space-y-6">
+206:            <motion.div key="sentinel" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="space-y-6">
+251:            <motion.div key="studio" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="space-y-6">
+126:               <div key={`profile-loading-${i}`} className="aspect-square bg-white/5 relative overflow-hidden">
+140:                key={`profile-post-${post.id || i}`} 
+159:                key={`profile-reel-${reel.id || i}`} 
+230:          <EditProfile key="edit" user={user} onBack={() => { playHaptic(); setCurrentView('profile'); }} />
+233:          <SettingsMenu key="settings" user={user} onBack={() => { playHaptic(); setCurrentView('profile'); }} />
+236:          <OmniDashboard key="omni" onBack={() => { playHaptic(); setCurrentView('profile'); }} />
+240:            key="profile"
+383:                  key={tab}
+518:                    key={`pin-dot-${i}`} 
+528:                    key={`keypad-${i}`}
+774:                   key={showStory ? "active" : "inactive"}
+145:            key={reel.id}
+260:            key={reaction.id}
+277:                {[1,2,3,4].map(i => <div key={`decoy-pin-field-${i}`} className="w-14 h-16 bg-charcoal border border-white/10 shadow-inner rounded-xl flex items-center justify-center text-3xl font-bold text-white">4</div>)}
+281:                   <button key={`decoy-keypad-${num}`} onClick={playHaptic} className="h-14 bg-white/5 rounded-full border border-white/5 text-white font-bold hover:bg-white/10 active:scale-95 transition-all text-xl">{num}</button>
+430:          <div key={`settings-category-${cat.title}`} className="bg-dark-grey/60 backdrop-blur-xl rounded-[24px] border border-white/5 shadow-[0_8px_30px_rgba(0,0,0,0.3)] overflow-hidden">
+443:                 <div key={`settings-item-${item.label}`} className="flex flex-col">
+477:                               key={`settings-opt-${item.label}-${opt}`}
+79:                <button key={filter} className="px-4 py-1.5 bg-amethyst-500/20 text-amethyst-300 text-xs font-bold uppercase rounded-full border border-amethyst-500/30 whitespace-nowrap">
+92:                 <div key={`discovery-${i}`} className="flex items-center gap-4 bg-white/5 p-3 rounded-2xl border border-white/5 hover:bg-white/10 transition-colors">
+126:                 <div key={`notification-${i}`} className="flex gap-4 p-4 bg-zinc-900 rounded-[1.5rem] border border-white/5 relative overflow-hidden">
+208:                                   <motion.div key={`audio-wave-${idx}-${i}`} animate={{ height: [15, 40, 15] }} transition={{ repeat: Infinity, duration: 0.8, delay: idx * 0.1 }} className="w-1.5 bg-amethyst-300 rounded-full mx-0.5" />
+275:                     key={track.id}
+322:                      key={tool.key}
+362:                       key={m}

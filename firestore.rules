@@ -1,0 +1,166 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // --- User Rules ---
+    function isValidUser(data) {
+      return data.keys().hasAll(['uid', 'fullName', 'username', 'createdAt'])
+        && data.uid is string && data.uid == request.auth.uid
+        && data.fullName is string && data.fullName.size() >= 2 && data.fullName.size() <= 100
+        && data.createdAt == request.time;
+    }
+
+    match /users/{userId} {
+      allow get: if isSignedIn() && isValidId(userId);
+      allow list: if isSignedIn() && resource.data.uid == request.auth.uid; // Security enforcing list
+      allow create: if isOwner(userId) && isValidUser(incoming());
+      allow update: if isSignedIn() 
+        && (
+          (
+            isOwner(userId)
+            && incoming().diff(existing()).affectedKeys().hasOnly(['fullName', 'username', 'profilePictureUrl', 'bio', 'followersCount', 'followingCount', 'streaks', 'stealthEngagementLevel', 'lastActive'])
+          )
+        );
+    }
+
+    // --- Post Rules ---
+    function isValidPost(data) {
+      return data.keys().hasAll(['authorId', 'authorName', 'content', 'createdAt'])
+        && data.keys().size() <= 8
+        && data.authorId is string && data.authorId == request.auth.uid
+        && data.authorName is string && data.authorName.size() <= 100
+        && data.content is string && data.content.size() <= 5000
+        && data.createdAt == request.time;
+    }
+
+    match /posts/{postId} {
+      allow get: if isSignedIn() && isValidId(postId);
+      allow list: if isSignedIn() && resource.data.createdAt >= timestamp.date(2000, 1, 1);
+      allow create: if isSignedIn() && isValidPost(incoming());
+      allow update: if isSignedIn() 
+        && (
+          (
+            existing().authorId == request.auth.uid 
+            && isValidPost(incoming()) 
+            && incoming().diff(existing()).affectedKeys().hasOnly(['content', 'imageUrl', 'likesCount', 'commentsCount'])
+          )
+          ||
+          (
+            incoming().diff(existing()).affectedKeys().hasOnly(['likesCount', 'commentsCount'])
+          )
+        );
+      allow delete: if isSignedIn() && existing().authorId == request.auth.uid;
+
+      match /comments/{commentId} {
+        allow get: if isSignedIn() && isValidId(commentId);
+        allow list: if isSignedIn();
+        allow create: if isSignedIn(); // Simplified validation for comments for demo
+        allow update: if isSignedIn() && incoming().diff(existing()).affectedKeys().hasOnly(['likes']);
+        allow delete: if isSignedIn() && existing().userId == request.auth.uid;
+      }
+    }
+
+    match /conversations/{conversationId}/messages/{messageId} {
+      allow get: if isSignedIn() && conversationId.matches('.*' + request.auth.uid + '.*') && isValidId(messageId);
+      allow list: if isSignedIn() && conversationId.matches('.*' + request.auth.uid + '.*');
+      allow create: if isSignedIn() && conversationId.matches('.*' + request.auth.uid + '.*');
+      allow update: if false;
+      allow delete: if isSignedIn() && existing().userId == request.auth.uid;
+    }
+
+    // --- Reel Rules ---
+    function isValidReel(data) {
+      return data.keys().hasAll(['authorId', 'author', 'videoUrl', 'createdAt'])
+        && data.keys().size() <= 8
+        && data.authorId is string && data.authorId == request.auth.uid
+        && data.author is string && data.author.size() <= 100
+        && data.videoUrl is string && data.videoUrl.size() <= 1000
+        && data.createdAt == request.time;
+    }
+
+    match /reels/{reelId} {
+      allow get: if isSignedIn() && isValidId(reelId);
+      allow list: if isSignedIn() && resource.data.createdAt >= timestamp.date(2000, 1, 1);
+      allow create: if isSignedIn() && isValidReel(incoming());
+      allow update: if isSignedIn() 
+        && (
+          (
+            existing().authorId == request.auth.uid
+            && isValidReel(incoming())
+            && incoming().diff(existing()).affectedKeys().hasOnly(['description', 'likes', 'comments'])
+          )
+          ||
+          (
+            incoming().diff(existing()).affectedKeys().hasOnly(['likes', 'comments'])
+          )
+        );
+      allow delete: if isSignedIn() && existing().authorId == request.auth.uid;
+    }
+
+    // --- Story Rules ---
+    function isValidStory(data) {
+      return data.keys().hasAll(['authorId', 'username', 'imageUrl', 'createdAt'])
+        && data.keys().size() <= 8
+        && data.authorId is string && data.authorId == request.auth.uid
+        && data.username is string && data.username.size() <= 100
+        && data.imageUrl is string && data.imageUrl.size() <= 1000
+        && data.createdAt == request.time;
+    }
+
+    match /stories/{storyId} {
+      allow get: if isSignedIn() && isValidId(storyId);
+      allow list: if isSignedIn() && resource.data.createdAt >= timestamp.date(2000, 1, 1);
+      allow create: if isSignedIn() && isValidStory(incoming());
+      allow update: if false; // stories typically don't update
+      allow delete: if isSignedIn() && existing().authorId == request.auth.uid;
+    }
+
+    // --- MarketItem Rules ---
+    function isValidMarketItem(data) {
+      return data.keys().hasAll(['sellerId', 'name', 'price', 'imageUrl', 'createdAt'])
+        && data.keys().size() <= 7
+        && data.sellerId is string && data.sellerId == request.auth.uid
+        && data.name is string && data.name.size() <= 150
+        && data.price is number && data.price >= 0
+        && data.imageUrl is string && data.imageUrl.size() <= 1000
+        && data.createdAt == request.time;
+    }
+
+    match /marketItems/{itemId} {
+      allow get: if isSignedIn() && isValidId(itemId);
+      allow list: if isSignedIn() && resource.data.createdAt >= timestamp.date(2000, 1, 1);
+      allow create: if isSignedIn() && isValidMarketItem(incoming());
+      allow update: if isSignedIn() 
+        && existing().sellerId == request.auth.uid
+        && isValidMarketItem(incoming())
+        && incoming().diff(existing()).affectedKeys().hasOnly(['name', 'price', 'imageUrl', 'description']);
+      allow delete: if isSignedIn() && existing().sellerId == request.auth.uid;
+    }
+  }
+}

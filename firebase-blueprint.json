@@ -1,0 +1,123 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User account information and profile data.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "fullName": { "type": "string", "description": "Full name of the user" },
+        "username": { "type": "string" },
+        "email": { "type": "string", "description": "User email address" },
+        "profilePictureUrl": { "type": "string", "description": "Profile picture URL" },
+        "bio": { "type": "string", "description": "User bio" },
+        "followersCount": { "type": "number" },
+        "followingCount": { "type": "number" },
+        "streaks": { "type": "number" },
+        "stealthEngagementLevel": { "type": "number" },
+        "lastActive": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "fullName", "username", "createdAt"]
+    },
+    "Post": {
+      "title": "Social Post",
+      "description": "A post in the Vexox feed.",
+      "type": "object",
+      "properties": {
+        "authorId": { "type": "string", "description": "UID of the author" },
+        "authorName": { "type": "string", "description": "Cached name of the author" },
+        "authorPhoto": { "type": "string", "description": "Cached photo of the author" },
+        "content": { "type": "string", "description": "Post text content" },
+        "imageUrl": { "type": "string", "description": "Optional post image" },
+        "likesCount": { "type": "number", "description": "Total likes" },
+        "commentsCount": { "type": "number", "description": "Total comments" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["authorId", "authorName", "createdAt"]
+    },
+    "Comment": {
+      "title": "Post Comment",
+      "description": "A comment on a post",
+      "type": "object",
+      "properties": {
+        "text": { "type": "string" },
+        "userId": { "type": "string" },
+        "user": { "type": "string" },
+        "avatar": { "type": "string" },
+        "likes": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["text", "userId", "user", "createdAt"]
+    },
+    "Message": {
+      "title": "Direct Message",
+      "description": "A chat message",
+      "type": "object",
+      "properties": {
+        "text": { "type": "string" },
+        "userId": { "type": "string" },
+        "recipientId": { "type": "string" },
+        "sentiment": { "type": "string" },
+        "replyTo": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["text", "userId", "recipientId", "createdAt"]
+    },
+    "Reel": {
+      "title": "Short Video",
+      "description": "A vertical reel video.",
+      "type": "object",
+      "properties": {
+        "authorId": { "type": "string" },
+        "author": { "type": "string" },
+        "videoUrl": { "type": "string" },
+        "description": { "type": "string" },
+        "likes": { "type": "number" },
+        "comments": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["authorId", "author", "videoUrl", "createdAt"]
+    },
+    "MarketItem": {
+      "title": "Marketplace Item",
+      "description": "An item listed for sale.",
+      "type": "object",
+      "properties": {
+        "sellerId": { "type": "string" },
+        "name": { "type": "string" },
+        "price": { "type": "number" },
+        "imageUrl": { "type": "string" },
+        "description": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["sellerId", "name", "price", "imageUrl", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Storage for user profiles."
+    },
+    "/posts/{postId}": {
+      "schema": "Post",
+      "description": "Storage for social media posts."
+    },
+    "/posts/{postId}/comments/{commentId}": {
+      "schema": "Comment",
+      "description": "Storage for post comments."
+    },
+    "/conversations/{conversationId}/messages/{messageId}": {
+      "schema": "Message",
+      "description": "Storage for 1-on-1 chat messages."
+    },
+    "/reels/{reelId}": {
+      "schema": "Reel",
+      "description": "Storage for short reels."
+    },
+    "/marketItems/{itemId}": {
+      "schema": "MarketItem",
+      "description": "Storage for marketplace items."
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Vexox",
+  "description": "A high-performance super-app featuring a social feed, AI Shiksha scan solver, and market with a Dark-Amethyst Glassmorphism design.",
+  "requestFramePermissions": ["camera", "microphone"],
+  "majorCapabilities": []
+}

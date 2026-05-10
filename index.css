@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300..700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-charcoal: #05020a;
+  --color-dark-grey: #120b1e;
+  --color-amethyst-900: #261141;
+  --color-amethyst-800: #3a1a63;
+  --color-amethyst-700: #4a1f80;
+  --color-amethyst-600: #6b2da8;
+  --color-amethyst-500: #9333ea;
+  --color-amethyst-accent: #c084fc;
+}
+
+@layer base {
+  body {
+    @apply bg-charcoal text-white font-sans antialiased selection:bg-amethyst-500/30;
+    min-height: 100vh;
+  }
+}
+
+.glass {
+  @apply bg-[#05020a]/40 backdrop-blur-[15px] border border-white/5;
+}
+
+.glass-amethyst {
+  @apply bg-amethyst-900/10 backdrop-blur-xl border border-white/10;
+}
+
+/* Custom scrollbar for web mobile feel */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}

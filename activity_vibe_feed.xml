@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#121212"
+    tools:context=".VibeFeedActivity">
+
+    <!-- FULL-SCREEN MEDIA VIEW -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vibeViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- DUAL-FEED TOGGLE -->
+    <LinearLayout
+        android:id="@+id/feedToggleContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/glass_rounded_bg"
+        android:elevation="10dp"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/toggleVibe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/toggle_selected_bg"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"
+            android:text="VIBE"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/toggleBrain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"
+            android:text="BRAIN"
+            android:textColor="#B3FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- INTERACTIVE OVERLAY -->
+    <LinearLayout
+        android:id="@+id/interactionOverlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="130dp"
+        android:elevation="10dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Like Button -->
+        <ImageButton
+            android:id="@+id/btnLike"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/glass_circle_bg"
+            android:src="@android:drawable/btn_star"
+            app:tint="#FFFFFF" />
+
+        <!-- Vexox Coin Tip -->
+        <ImageButton
+            android:id="@+id/btnTip"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/glass_circle_bg"
+            android:src="@android:drawable/ic_menu_mylocation"
+            app:tint="#FFD700" />
+
+        <!-- Share -->
+        <ImageButton
+            android:id="@+id/btnShare"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/glass_circle_bg"
+            android:src="@android:drawable/ic_menu_share"
+            app:tint="#FFFFFF" />
+
+        <!-- AI Auto-Dub -->
+        <ImageButton
+            android:id="@+id/btnAutoDub"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@drawable/glass_circle_bg"
+            android:src="@android:drawable/ic_btn_speak_now"
+            app:tint="#00E5FF" />
+    </LinearLayout>
+
+    <!-- AR AUTO-SOLVE HUD -->
+    <FrameLayout
+        android:id="@+id/arHudOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#4D000000"
+        android:elevation="5dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#3300E5FF"
+            android:padding="16dp"
+            android:text="[AR Auto-Solve Active]\nAnalyzing mathematical structures..."
+            android:textAlignment="center"
+            android:textColor="#00E5FF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <!-- Global Navigation Padding Enforced pb-[130px] -->
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
