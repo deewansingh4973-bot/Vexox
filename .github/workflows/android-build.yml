@@ -14,11 +14,11 @@ jobs:
           distribution: 'temurin'
       - name: Build with Gradle
         run: |
-          chmod +x android/gradlew
-          cd android && ./gradlew assembleDebug
+          chmod +x gradlew
+          gradlew assembleDebug
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Vexox-App
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          path: app/build/outputs/apk/debug/app-debug.apk
           
